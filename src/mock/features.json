@@ -1,0 +1,120 @@
+{
+  "processes": [
+    {
+      "id": 11,
+      "name": "3D Printing FDM - Fused Deposition Modeling",
+      "active": true
+    },
+    {
+      "id": 15,
+      "name": "CNC Machining",
+      "active": true
+    },
+    {
+      "id": 37,
+      "name": "Injection Molding",
+      "active": false
+    }
+  ],
+  "materials": [
+    {
+      "id": 1,
+      "processId": 11,
+      "name": "SIL 30",
+      "color": [],
+      "infill": ["Light", "Ultra light"],
+      "tolerance": {
+        "default": 0.001,
+        "options": [0.001, 0.002, 0.003, 0.004]
+      },
+      "active": true,
+      "isCustom": false
+    },
+    {
+      "id": 2,
+      "processId": 11,
+      "name": "DPR 10",
+      "color": ["red", "black"],
+      "infill": ["Light", "Ultra light"],
+      "tolerance": {
+        "default": 0.001,
+        "options": [0.001, 0.002, 0.003, 0.004]
+      },
+      "active": true,
+      "isCustom": false
+    },
+    {
+      "id": 3,
+      "processId": 11,
+      "name": "CE 221 (Cyanate ester)",
+      "color": ["silver"],
+      "infill": [],
+      "tolerance": {},
+      "active": false,
+      "isCustom": false
+    },
+    {
+      "id": 4,
+      "processId": 15,
+      "name": "ABS",
+      "color": ["black", "red", "blue", "orange"],
+      "infill": ["Light"],
+      "tolerance": {
+        "default": 0.002,
+        "options": [0.001, 0.002, 0.003, 0.004]
+      },
+      "active": true,
+      "isCustom": false
+    },
+    {
+      "id": 5,
+      "processId": 15,
+      "name": "Stainless Steel 1.4571 / X6CrNiMoTi17-12-2",
+      "color": ["silver", "black"],
+      "infill": [],
+      "tolerance": {},
+      "active": true,
+      "isCustom": false
+    },
+    {
+      "id": 6,
+      "processId": 15,
+      "name": "Custom material",
+      "color": [],
+      "infill": [],
+      "tolerance": {},
+      "active": true,
+      "isCustom": true
+    }
+  ],
+  "finishes": [
+    {
+      "id": 4561,
+      "processId": 11,
+      "name": "Standard",
+      "restrictedMaterials": [],
+      "isCustom": false
+    },
+    {
+      "id": 4562,
+      "processId": 15,
+      "name": "Standard",
+      "restrictedMaterials": [],
+      "isCustom": false
+    },
+    {
+      "id": 4563,
+      "processId": 15,
+      "name": "Anodize (Blue)",
+      "restrictedMaterials": [5],
+      "isCustom": false
+    },
+    {
+      "id": 4568,
+      "processId": 15,
+      "name": "Custom finish",
+      "restrictedMaterials": [5],
+      "isCustom": true
+    }
+  ]
+}
