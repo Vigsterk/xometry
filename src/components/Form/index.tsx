@@ -1,18 +1,13 @@
-import { useEffect, useState } from "react";
-import { Divider, Form, Input, InputNumber, Select, Button } from "antd";
-import cn from "classnames";
+import { useEffect, useState } from 'react';
+import { Divider, Form, Input, InputNumber, Select, Button } from 'antd';
+import cn from 'classnames';
 
-import { isNull } from "../../helpers";
-import {
-  FinishesType,
-  MaterialsType,
-  OtherPropsType,
-  ProcessType,
-} from "../../types";
+import { isNull } from '../../helpers';
+import { FinishesType, MaterialsType, OtherPropsType, ProcessType } from '../../types';
 
-import parameters from "../../mock/features.json";
+import parameters from '../../mock/features.json';
 
-import styles from "./styles.module.scss";
+import styles from './styles.module.scss';
 
 const { Option } = Select;
 
@@ -20,9 +15,7 @@ export function MainForm() {
   const { processes, materials, finishes } = parameters;
 
   const [activeProcessId, setProcessId] = useState<number>(0);
-  const [activeMaterial, setActiveMaterial] = useState<MaterialsType | null>(
-    null
-  );
+  const [activeMaterial, setActiveMaterial] = useState<MaterialsType | null>(null);
   const [activeFinish, setActiveFinish] = useState<FinishesType | null>(null);
 
   const defaultOtherProps: OtherPropsType = {
@@ -38,8 +31,7 @@ export function MainForm() {
 
   const availableOptions = checkAvailableOptions();
 
-  const [otherProps, setOtherProps] =
-    useState<OtherPropsType>(defaultOtherProps);
+  const [otherProps, setOtherProps] = useState<OtherPropsType>(defaultOtherProps);
 
   useEffect(() => {
     setOtherProps({
@@ -70,16 +62,8 @@ export function MainForm() {
   }
 
   function handleSubmit() {
-    const {
-      quantity,
-      color,
-      infill,
-      customMaterial,
-      customFinish,
-      tolerance,
-      threads,
-      inserts,
-    } = otherProps;
+    const { quantity, color, infill, customMaterial, customFinish, tolerance, threads, inserts } =
+      otherProps;
     console.log({
       quantity,
       processId: activeProcessId,
@@ -105,9 +89,7 @@ export function MainForm() {
     return finishes.some((finish: FinishesType) => {
       return (
         activeProcessId === finish.processId &&
-        finish.restrictedMaterials.find(
-          (element) => element === activeMaterial?.id
-        )
+        finish.restrictedMaterials.find((element) => element === activeMaterial?.id)
       );
     });
   }
@@ -115,30 +97,24 @@ export function MainForm() {
   return (
     <Form className={styles.FormContainer} layout="vertical">
       <div className={styles.FormHeader}>
-        <span className={styles.FormHeader_Title}>
-          Manufacturing Process / Material
-        </span>
+        <span className={styles.FormHeader_Title}>Manufacturing Process / Material</span>
         <Form.Item className={styles.Quantity}>
           <span className={styles.FormHeader_Title}>Quantity:</span>
           <InputNumber
             min={1}
-            size={"large"}
+            size={'large'}
             className={styles.Quantity_Input}
             controls={true}
             value={otherProps.quantity}
-            onChange={(element: number) =>
-              handleSetOtherProps({ quantity: element })
-            }
+            onChange={(element: number) => handleSetOtherProps({ quantity: element })}
           />
         </Form.Item>
       </div>
       <Form.Item className={styles.FormItem_lg}>
         <div className={styles.FormLabelContainer}>
-          <span className={cn(styles.FormLabel, styles.FormLabel__primary)}>
-            Technology:
-          </span>
+          <span className={cn(styles.FormLabel, styles.FormLabel__primary)}>Technology:</span>
         </div>
-        <Select size={"large"} onChange={handleSetProcess}>
+        <Select size={'large'} onChange={handleSetProcess}>
           {processes.map((process: ProcessType) => {
             return (
               process.active && (
@@ -152,20 +128,14 @@ export function MainForm() {
       </Form.Item>
       <Form.Item className={styles.FormItem__lg}>
         <div className={styles.FormLabelContainer}>
-          <span className={cn(styles.FormLabel, styles.FormLabel__primary)}>
-            Material:
-          </span>
+          <span className={cn(styles.FormLabel, styles.FormLabel__primary)}>Material:</span>
           {!!availableOptions && (
             <span
               className={cn(styles.FormLabel, styles.FormLabel__second)}
             >{`${availableOptions} options available`}</span>
           )}
         </div>
-        <Select
-          size={"large"}
-          onChange={handleSetMaterial}
-          value={activeMaterial?.index}
-        >
+        <Select size={'large'} onChange={handleSetMaterial} value={activeMaterial?.index}>
           {activeProcessId &&
             materials.map((material: MaterialsType, index) => {
               return (
@@ -182,12 +152,8 @@ export function MainForm() {
       {activeMaterial?.isCustom && (
         <Form.Item className={styles.FormItem__md} label="Custom material:">
           <Input
-            size={"large"}
-            value={
-              isNull(otherProps.customMaterial)
-                ? undefined
-                : otherProps.customMaterial!
-            }
+            size={'large'}
+            value={isNull(otherProps.customMaterial) ? undefined : otherProps.customMaterial!}
             placeholder="Enter material"
             onChange={(event) => {
               handleSetOtherProps({
@@ -212,7 +178,7 @@ export function MainForm() {
             </span>
           </div>
           <Select
-            size={"large"}
+            size={'large'}
             value={otherProps.color}
             onChange={(element) => handleSetOtherProps({ color: element })}
           >
@@ -240,7 +206,7 @@ export function MainForm() {
             </span>
           </div>
           <Select
-            size={"large"}
+            size={'large'}
             value={otherProps.infill}
             onChange={(element) => handleSetOtherProps({ infill: element })}
           >
@@ -262,17 +228,11 @@ export function MainForm() {
 
       {checkFinishesOptions() && (
         <Form.Item className={styles.FormItem__md} label="Finish:">
-          <Select
-            size={"large"}
-            value={activeFinish?.index}
-            onChange={handleSetFinish}
-          >
+          <Select size={'large'} value={activeFinish?.index} onChange={handleSetFinish}>
             {finishes.map((finish: FinishesType, index) => {
               return (
                 activeProcessId === finish.processId &&
-                finish.restrictedMaterials.find(
-                  (element) => element === activeMaterial?.id
-                ) && (
+                finish.restrictedMaterials.find((element) => element === activeMaterial?.id) && (
                   <Option key={finish.id} value={index}>
                     {finish.name}
                   </Option>
@@ -285,12 +245,8 @@ export function MainForm() {
       {activeFinish?.isCustom && (
         <Form.Item className={styles.FormItem__md} label="Custom finish:">
           <Input
-            size={"large"}
-            value={
-              otherProps.customFinish === null
-                ? undefined
-                : otherProps.customFinish!
-            }
+            size={'large'}
+            value={otherProps.customFinish === null ? undefined : otherProps.customFinish!}
             placeholder="Enter"
             onChange={(event) => {
               handleSetOtherProps({
@@ -304,7 +260,7 @@ export function MainForm() {
       {!!activeMaterial?.tolerance?.options?.length && (
         <Form.Item className={styles.FormItem__md} label="Tightest tolerance:">
           <Select
-            size={"large"}
+            size={'large'}
             value={
               isNull(otherProps.tolerance)
                 ? activeMaterial?.tolerance?.default
@@ -322,23 +278,16 @@ export function MainForm() {
           </Select>
           <span className={styles.FormItem_subDescription}>
             Not sure about the
-            <a
-              href="https://www.google.com/"
-              target={"_blank"}
-              rel="noreferrer"
-            >
+            <a href="https://www.google.com/" target={'_blank'} rel="noreferrer">
               &nbsp;tolerance standards?
             </a>
           </span>
         </Form.Item>
       )}
-      <Form.Item
-        className={styles.FormItem__sm}
-        label="Threads and Tapped Holes"
-      >
+      <Form.Item className={styles.FormItem__sm} label="Threads and Tapped Holes">
         <InputNumber
           min={1}
-          size={"large"}
+          size={'large'}
           className={styles.InputNumber}
           value={isNull(otherProps.threads) ? undefined : otherProps.threads}
           onChange={(number: number) => {
@@ -349,7 +298,7 @@ export function MainForm() {
       <Form.Item className={styles.FormItem__sm} label="Inserts">
         <InputNumber
           min={1}
-          size={"large"}
+          size={'large'}
           className={styles.InputNumber}
           value={isNull(otherProps.inserts) ? undefined : otherProps.inserts}
           onChange={(number: number) => {

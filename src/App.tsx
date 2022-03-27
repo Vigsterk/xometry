@@ -1,4 +1,4 @@
-import { MainForm } from "./components/Form";
+import { MainForm } from './components/Form';
 
 function App() {
   return (
